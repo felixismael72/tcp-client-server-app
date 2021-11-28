@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"log"
 	"net"
 )
@@ -26,14 +27,17 @@ func main() {
 }
 
 func handle(conn net.Conn) {
+	defer conn.Close()
+
 	for {
 		data, err := bufio.NewReader(conn).ReadString('\n')
-		if err != nil {
+		if err == io.EOF {
+			return
+		} else if err != nil {
 			log.Fatal(err)
 		}
 
 		fmt.Println(data)
 	}
 
-	conn.Close()
 }
