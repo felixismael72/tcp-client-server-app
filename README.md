@@ -12,5 +12,5 @@ go run server.go
 ```
 - Execute o arquivo client.go:
 ```
-go run server.go
+go run client.go
 ```
